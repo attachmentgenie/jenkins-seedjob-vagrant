@@ -20,7 +20,7 @@ pipeline {
                 message "Will it work in Theory?"
             }
             steps {
-                sh 'nomad-pack run hello_world --registry=attachmentgenie --var namespace=theory --var datacenters=[\\\"lab\\\"]'
+                sh 'nomad-pack run hello_world --registry=attachmentgenie --var namespace=theory --var datacenters=[\\\\"lab\\\\"]'
             }
         }
         stage('Deploy to Reality') {
@@ -28,7 +28,7 @@ pipeline {
                 message "Reality Check!"
             }
             steps {
-                sh 'nomad-pack run hello_world --registry=attachmentgenie --var namespace=reality --var datacenters=[\\\"lab\\\"]'
+                sh 'nomad-pack run hello_world --registry=attachmentgenie --var namespace=reality --var datacenters=[\\\\"lab\\\\"]'
             }
         }
     }
