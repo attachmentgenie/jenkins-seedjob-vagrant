@@ -7,7 +7,7 @@ pipelineJob('platform/hello-world') {
 pipeline {
     agent { label 'nomad' }
     environment {
-        NOMAD_ADDR = 'http://192.168.1.10:4646'
+        NOMAD_ADDR = 'http://nomad.service.consul:4646'
     }
     stages {
         stage('Prepare') { 
@@ -20,7 +20,7 @@ pipeline {
                 message "Will it work in Theory?"
             }
             steps {
-                sh 'nomad-pack run hello_world --registry=attachmentgenie --var namespace=theory --var datacenters=[\\\\"lab\\\\"]'
+                sh 'nomad-pack run hello_world --registry=attachmentgenie --var namespace=theory --var consul_service_name=theory --var datacenters=[\\\\"lab\\\\"]'
             }
         }
         stage('Deploy to Reality') {
@@ -28,7 +28,7 @@ pipeline {
                 message "Reality Check!"
             }
             steps {
-                sh 'nomad-pack run hello_world --registry=attachmentgenie --var namespace=reality --var datacenters=[\\\\"lab\\\\"]'
+                sh 'nomad-pack run hello_world --registry=attachmentgenie --var namespace=reality --var consul_service_name=reality --var datacenters=[\\\\"lab\\\\"]'
             }
         }
     }
