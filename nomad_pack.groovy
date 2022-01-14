@@ -1,5 +1,5 @@
-folder("nomad-pack")
-pipelineJob('nomad-pack/hello-world') {
+folder("platform")
+pipelineJob('platform/hello-world') {
   definition {
     cps {
       script('''
