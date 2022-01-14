@@ -1,11 +1,15 @@
 folder("examples")
+
 job('examples/whoami') {
-  label('nomad')
-  steps {
-      shell('whoami')
-  }
+    description('Barebones job, to test if the nomad integration is setup properly, will output the current user.')
+    label('nomad')
+    steps {
+        shell('whoami')
+    }
 }
+
 pipelineJob('examples/hello-world') {
+    description('This job shows how to use nomad-pack and vault to deploy nomad applications, will deploy a hello world app.')
     definition {
         cps {
             script('''
