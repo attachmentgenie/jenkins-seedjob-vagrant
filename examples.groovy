@@ -11,9 +11,6 @@ pipelineJob('examples/hello-world') {
             script('''
 pipeline {
     agent { label 'nomad' }
-    environment {
-        NOMAD_ADDR = 'http://nomad.service.consul:4646'
-    }
     stages {
         stage('Prepare') { 
             steps { 
