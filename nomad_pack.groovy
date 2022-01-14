@@ -1,8 +1,8 @@
 folder("nomad-pack")
 pipelineJob('nomad-pack/hello-world') {
-    definition {
-      cpsFlowDefinition {
-      script('
+  definition {
+    cps {
+      script('''
 pipeline {
     agent { label 'nomad' }
 
@@ -30,9 +30,7 @@ pipeline {
         }
     }
 }
-
-      ')
-      sandbox(false)
+      ''')
       }
     }
 }
