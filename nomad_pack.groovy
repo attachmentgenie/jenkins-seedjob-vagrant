@@ -33,7 +33,7 @@ pipeline {
                 withCredentials([vaultString(credentialsId: 'supersecret', variable: 'SUPERSECRET')]) {
                     script {
                         env = "reality"
-                        sh "nomad-pack run hello_world --registry=attachmentgenie --var message=${SUPERSECRET} --var namespace=${env} --var consul_service_name=${env}"
+                        sh "nomad-pack run hello_world --registry=attachmentgenie --var message='we should not leak secrets, but here are: ${SUPERSECRET}' --var namespace=${env} --var consul_service_name=${env}"
                     }
                 }
             }
