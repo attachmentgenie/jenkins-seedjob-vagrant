@@ -17,7 +17,7 @@ pipeline {
                 message "Will it work in Theory?"
             }
             steps {
-                sh 'nomad-pack -version'
+                sh 'nomad-pack run hello_world --registry=attachmentgenie --var namespace=theory'
             }
         }
         stage('Deploy to Reality') {
@@ -25,7 +25,7 @@ pipeline {
                 message "Reality Check!"
             }
             steps {
-                sh 'nomad-pack registry list'
+                sh 'nomad-pack run hello_world --registry=attachmentgenie --var namespace=reality'
             }
         }
     }
