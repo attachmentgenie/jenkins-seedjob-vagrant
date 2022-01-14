@@ -1,9 +1,8 @@
 folder("platform")
 pipelineJob('platform/hello-world') {
-  definition {
-    cps {
-      script('''
-
+    definition {
+        cps {
+            script('''
 pipeline {
     agent { label 'nomad' }
     environment {
@@ -20,7 +19,10 @@ pipeline {
                 message "Will it work in Theory?"
             }
             steps {
-                sh 'nomad-pack run hello_world --registry=attachmentgenie --var namespace=theory --var consul_service_name=theory --var datacenters=[\\\\"lab\\\\"]'
+                script {
+                    env = "theory"
+                    sh "nomad-pack run hello_world --registry=attachmentgenie --var namespace=${env} --var consul_service_name=${env}"
+                }
             }
         }
         stage('Deploy to Reality') {
@@ -28,12 +30,17 @@ pipeline {
                 message "Reality Check!"
             }
             steps {
-                sh 'nomad-pack run hello_world --registry=attachmentgenie --var namespace=reality --var consul_service_name=reality --var datacenters=[\\\\"lab\\\\"]'
+                withCredentials([vaultString(credentialsId: 'supersecret', variable: 'SUPERSECRET')]) {
+                    script {
+                        env = "reality"
+                        sh "nomad-pack run hello_world --registry=attachmentgenie --var message=${SUPERSECRET} --var namespace=${env} --var consul_service_name=${env}"
+                    }
+                }
             }
         }
     }
 }
-      ''')
-      }
+        ''')
+        }
     }
 }
