@@ -1,11 +1,11 @@
-folder("test")
-job('test/whoami') {
+folder("examples")
+job('examples/whoami') {
   label('nomad')
   steps {
       shell('whoami')
   }
 }
-pipelineJob('test/hello-world') {
+pipelineJob('examples/hello-world') {
     definition {
         cps {
             script('''
