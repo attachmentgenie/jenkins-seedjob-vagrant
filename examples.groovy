@@ -21,10 +21,7 @@ pipeline {
                 sh 'nomad-pack registry add attachmentgenie github.com/attachmentgenie/pack-registry'
             }
         }
-        stage('Deploy to Theory'){
-            input{
-                message "Will it work in Theory?"
-            }
+        stage('Will it work in Theory?'){
             steps {
                 script {
                     env = "theory"
