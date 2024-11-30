@@ -2,7 +2,7 @@ folder("examples")
 
 job('examples/whoami') {
     description('Barebones job, to test if the nomad integration is setup properly, will output the current user.')
-    label('nomad')
+    label('mgmt')
     steps {
         shell('whoami')
     }
@@ -14,7 +14,7 @@ pipelineJob('examples/hello-world') {
         cps {
             script('''
 pipeline {
-    agent { label 'nomad' }
+    agent { label 'mgmt' }
     stages {
         stage('Prepare') { 
             steps { 
