@@ -18,14 +18,14 @@ pipeline {
     stages {
         stage('Prepare') { 
             steps { 
-                sh 'nomad-pack registry add attachmentgenie github.com/attachmentgenie/pack-registry'
+                sh 'nomad-pack registry add attachmentgenie github.com/attachmentgenie/nomad-pack-attachmentgenie-registry'
             }
         }
         stage('Will it work in Theory?'){
             steps {
                 script {
                     env = "theory"
-                    sh "nomad-pack run hello_world --registry=attachmentgenie --var namespace=${env} --var consul_service_name=${env}"
+                    sh "nomad-pack run example --registry=attachmentgenie --var namespace=${env}"
                 }
             }
         }
@@ -37,7 +37,7 @@ pipeline {
                 withCredentials([vaultString(credentialsId: 'supersecret', variable: 'SUPERSECRET')]) {
                     script {
                         env = "reality"
-                        sh "nomad-pack run hello_world --registry=attachmentgenie --var message='we should not leak secrets, but here are: ${SUPERSECRET}' --var namespace=${env} --var consul_service_name=${env}"
+                        sh "nomad-pack run example --registry=attachmentgenie --var message='we should not leak secrets, but here are: ${SUPERSECRET}' --var namespace=${env}"
                     }
                 }
             }
